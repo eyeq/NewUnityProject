@@ -5,12 +5,12 @@ public class CardDraggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 {
     [SerializeField] public Transform fieldPanel;
 
-    private Transform _parent;
+    private Transform _prevParent;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        _parent = transform.parent;
-        transform.SetParent(_parent.parent, false);
+        _prevParent = transform.parent;
+        transform.SetParent(_prevParent.parent, false);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
@@ -21,14 +21,25 @@ public class CardDraggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (eventData.pointerEnter.transform == fieldPanel)
+        var nextParent = _prevParent;
+        if (eventData.pointerEnter != null && eventData.pointerEnter.transform == fieldPanel)
         {
-            transform.SetParent(fieldPanel, false);
+            nextParent = fieldPanel;
         }
-        else
+
+        var x = transform.position.x;
+        var count = 0;
+        for (var i = 0; i < nextParent.childCount; i++)
         {
-            transform.SetParent(_parent, false);
+            var child = nextParent.GetChild(i);
+            if (child.position.x < x)
+            {
+                count++;
+            }
         }
+
+        transform.SetParent(nextParent, false);
+        transform.SetSiblingIndex(count); 
         GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 }
