@@ -3,9 +3,8 @@ using UnityEngine.EventSystems;
 
 public class CardDraggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    [SerializeField]
-    public Transform fieldPanel;
-    
+    [SerializeField] public Transform fieldPanel;
+
     private Transform _parent;
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -14,7 +13,7 @@ public class CardDraggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         transform.SetParent(_parent.parent, false);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
-    
+
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = eventData.position;

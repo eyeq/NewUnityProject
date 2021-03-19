@@ -52,6 +52,9 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Model\CardModel.cs" />
+     <Compile Include="Assets\Scripts\Controller\CardController.cs" />
+     <Compile Include="Assets\Scripts\View\CardView.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\CardDraggable.cs" />
  <Reference Include="UnityEngine">
