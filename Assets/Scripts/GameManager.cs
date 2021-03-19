@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,18 +6,17 @@ public class GameManager : MonoBehaviour
     public GameObject cardPrefab;
     
     [SerializeField]
-    public Transform hand;
+    public Transform handPanel;
+    
+    [SerializeField]
+    public Transform filedPanel;
     
     public void Start()
     {
+        cardPrefab.AddComponent<CardDraggable>().fieldPanel = filedPanel;
         for (var i = 0; i < 7; i++)
         {
-            Instantiate(cardPrefab, hand);
+            Instantiate(cardPrefab, handPanel);
         }
-    }
-    
-    public void Update()
-    {
-        
     }
 }
