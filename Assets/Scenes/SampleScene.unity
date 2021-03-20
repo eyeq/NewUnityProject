@@ -367,7 +367,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 121645566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 735e45a557374ee5acda37c9590aa407, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -376,14 +376,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  radius: 1000
 --- !u!114 &121645569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0f17d6c2b4a9c42a4c9642e3c12d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPrefab: {fileID: -8653553632356689626, guid: 7683ca833fe01b74c9b5b3f294cea744, type: 3}
+  cardPrefab: {fileID: 6700731273034422976, guid: 7683ca833fe01b74c9b5b3f294cea744, type: 3}
   handPanel: {fileID: 121645567}
   filedPanel: {fileID: 905907880}
 --- !u!4 &786270579

@@ -1,4 +1,6 @@
 using Controller;
+using Event;
+using Extensions;
 using Model;
 using UnityEngine;
 
@@ -12,7 +14,9 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        cardPrefab.gameObject.RemoveAllComponents<CardDraggable>();
         cardPrefab.gameObject.AddComponent<CardDraggable>().fieldPanel = filedPanel;
+        
         for (var i = 0; i < 7; i++)
         {
             var card = Instantiate(cardPrefab, handPanel);
