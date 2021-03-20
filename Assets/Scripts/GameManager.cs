@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Controller;
 using Event;
 using Extensions;
@@ -38,31 +40,59 @@ public class GameManager : MonoBehaviour
             });
             card.transform.position = new Vector3(100 - i, 100, 0);
         }
-        
-        for (var i = 0; i < 7; i++)
+
+        Task.Run(async () =>
         {
-            DrawCard();
-        }
+            for (var i = 0; i < 7; i++)
+            {
+                await AsyncDrawCard();
+            }
+        });
     }
 
     public void DrawCard()
     {
-        if (!_deck.Any())
+        AsyncDrawCard();
+    }
+    
+    private async Task AsyncDrawCard()
+    {
+        await Task.Run(async () =>
         {
-            return;
-        }
-
-        {
-            var card = deckPanel.GetComponentsInChildren<CardController>().Last();
-            card.transform.SetParent(handPanel, false);
+            if (!_deck.Any())
+            {
+                return;
+            }
             
             var cardEntity = _deck.First();
+            _deck.RemoveAt(0);
+
+            var card = deckPanel.GetComponentsInChildren<CardController>().Last();
             card.Init(new CardModel
             {
                 Num = cardEntity,
             });
+            await CardMoveAnimation(card.transform, handPanel, 1000);
+        });
+    }
 
-            _deck.RemoveAt(0);
+    private async Task CardMoveAnimation(Transform card, Transform target, float speed)
+    {
+        transform.SetParent(card.parent.parent, false);
+        card.GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+        var vector = (target.position - card.position);
+        vector *= (speed / vector.magnitude);
+        while (0 < vector.x && card.position.x < target.position.x || 
+               0 > vector.x && card.position.x > target.position.x ||
+               0 < vector.y && card.position.y < target.position.y ||
+               0 > vector.y && card.position.y > target.position.y)
+        {
+            card.position += vector * Time.deltaTime;
+            await Task.Delay(TimeSpan.FromSeconds(0.01f));
         }
+        
+        card.transform.SetParent(target, false);
+        card.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 }
