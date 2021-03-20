@@ -5,6 +5,8 @@ namespace Event
 {
     public class CardDraggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
+        [SerializeField] public Transform handPanel;
+        
         [SerializeField] public Transform fieldPanel;
 
         private Transform _prevParent;
@@ -12,17 +14,32 @@ namespace Event
         public void OnBeginDrag(PointerEventData eventData)
         {
             _prevParent = transform.parent;
+            if (_prevParent != handPanel)
+            {
+                return;
+            }
+            
             transform.SetParent(_prevParent.parent, false);
             GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (_prevParent != handPanel)
+            {
+                return;
+            }
+            
             transform.position = eventData.position;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (_prevParent != handPanel)
+            {
+                return;
+            }
+            
             var nextParent = _prevParent;
             if (eventData.pointerEnter != null && eventData.pointerEnter.transform == fieldPanel)
             {

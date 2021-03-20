@@ -7,14 +7,14 @@ namespace Extensions
         public static void RemoveComponent<T>(this GameObject gameObject) where T : Object
         {
             var component = gameObject.GetComponent<T>();
-            Object.Destroy(component);
+            Object.DestroyImmediate(component, true);
         }
 
         public static void RemoveAllComponents<T>(this GameObject gameObject) where T : Object
         {
             foreach (var component in gameObject.GetComponents<T>())
             {
-                Object.Destroy(component);
+                Object.DestroyImmediate(component, true);
             }
         }
     }
