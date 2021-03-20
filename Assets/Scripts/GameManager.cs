@@ -25,8 +25,7 @@ public class GameManager : MonoBehaviour
     
     public void Start()
     {
-        cardPrefab.gameObject.RemoveAllComponents<CardDraggable>();
-        var cardDraggable = cardPrefab.gameObject.AddComponent<CardDraggable>();
+        var cardDraggable = cardPrefab.gameObject.GetComponent<CardDraggable>();
         cardDraggable.handPanel = handPanel;
         cardDraggable.fieldPanel = filedPanel;
 
@@ -42,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     private async Task AsyncInitDeck(IEnumerable<int> deck)
     {
+        Debug.Log("デッキ初期化");
         try
         {
             await _deckSemaphore.WaitAsync();
@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     
     private async Task AsyncDrawCard(int count)
     {
+        Debug.Log($"ドロー: {count}");
         try
         {
             await _deckSemaphore.WaitAsync();
