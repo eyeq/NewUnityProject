@@ -53,6 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Model\CardModel.cs" />
+     <Compile Include="Assets\Scripts\Extensions\ListExtensions.cs" />
      <Compile Include="Assets\Scripts\Layout\SectorLayoutGroup.cs" />
      <Compile Include="Assets\Scripts\Controller\CardController.cs" />
      <Compile Include="Assets\Scripts\View\CardView.cs" />
