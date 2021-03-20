@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Controller;
 using Event;
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     private readonly List<int> _deck = new List<int>();
 
+    private readonly SemaphoreSlim _deckSemaphore = new SemaphoreSlim(1, 1);
+    
     public void Start()
     {
         cardPrefab.gameObject.RemoveAllComponents<CardDraggable>();
@@ -27,53 +30,70 @@ public class GameManager : MonoBehaviour
         cardDraggable.handPanel = handPanel;
         cardDraggable.fieldPanel = filedPanel;
 
-        _deck.Clear();
-        _deck.AddRange(new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13});
-        _deck.Shuffle();
+        AsyncInitDeck(new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13});
 
-        for (var i = 0; i < _deck.Count; i++)
-        {
-            var card = Instantiate(cardPrefab, deckPanel);
-            card.Init(new CardModel
-            {
-                Num = -1,
-            });
-            card.transform.position = new Vector3(100 - i, 100, 0);
-        }
-
-        Task.Run(async () =>
-        {
-            for (var i = 0; i < 7; i++)
-            {
-                await AsyncDrawCard();
-            }
-        });
+        AsyncDrawCard(7);
     }
 
     public void DrawCard()
     {
-        AsyncDrawCard();
+        AsyncDrawCard(1);
+    }
+
+    private async Task AsyncInitDeck(IEnumerable<int> deck)
+    {
+        try
+        {
+            await _deckSemaphore.WaitAsync();
+
+            _deck.Clear();
+            _deck.AddRange(deck);
+            _deck.Shuffle();
+
+            for (var i = 0; i < _deck.Count; i++)
+            {
+                var card = Instantiate(cardPrefab, deckPanel);
+                card.Init(new CardModel
+                {
+                    Num = -1,
+                });
+                card.transform.position = new Vector3(100 - i, 100, 0);
+            }
+        } 
+        finally
+        {
+            _deckSemaphore.Release();
+        }
     }
     
-    private async Task AsyncDrawCard()
+    private async Task AsyncDrawCard(int count)
     {
-        await Task.Run(async () =>
+        try
         {
-            if (!_deck.Any())
-            {
-                return;
-            }
+            await _deckSemaphore.WaitAsync();
             
-            var cardEntity = _deck.First();
-            _deck.RemoveAt(0);
-
-            var card = deckPanel.GetComponentsInChildren<CardController>().Last();
-            card.Init(new CardModel
+            for (var i = 0; i < count; i++)
             {
-                Num = cardEntity,
-            });
-            await CardMoveAnimation(card.transform, handPanel, 1000);
-        });
+                if (!_deck.Any())
+                {
+                    return;
+                }
+    
+                var cardEntity = _deck.First();
+                _deck.RemoveAt(0);
+
+                var card = deckPanel.GetComponentsInChildren<CardController>().Last();
+                card.Init(new CardModel
+                {
+                    Num = cardEntity,
+                });
+                await CardMoveAnimation(card.transform, handPanel, 1000);
+            }
+        } 
+        finally
+        {
+            _deckSemaphore.Release();
+        }
     }
 
     private async Task CardMoveAnimation(Transform card, Transform target, float speed)
