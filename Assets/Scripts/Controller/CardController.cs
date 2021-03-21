@@ -15,16 +15,16 @@ namespace Controller
         
         private Transform _prevParent;
 
-        private void Awake()
-        {
-            _view = GetComponent<CardView>();
-        }
-
         public void Init(CardModel model, Transform hand, Transform field)
         {
             handPanel = hand;
             fieldPanel = field;
             _view.Show(model);
+        }
+
+        private void Awake()
+        {
+            _view = GetComponent<CardView>();
         }
         
         public void OnBeginDrag(PointerEventData eventData)

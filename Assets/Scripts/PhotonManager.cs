@@ -32,6 +32,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("入室成功");
+        PhotonNetwork.LocalPlayer.NickName = "Player" + PhotonNetwork.LocalPlayer.ActorNumber;
         PhotonNetwork.Instantiate(prefabName, playerInitPosition, Quaternion.Euler(playerInitRotation));
     }
 }
