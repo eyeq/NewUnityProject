@@ -27,6 +27,16 @@ namespace Controller
             {
                 Name = info.Sender.NickName,
             });
+            
+            var photonView = GetComponent<PhotonView>();
+            if (photonView.Owner.UserId == PhotonNetwork.LocalPlayer.UserId)
+            {
+                transform.SetAsLastSibling();
+            }
+            else
+            {
+                transform.SetAsFirstSibling();
+            }
         }
         
         public void OnDrag(PointerEventData eventData)

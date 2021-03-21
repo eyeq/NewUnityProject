@@ -37,6 +37,7 @@ namespace Controller
             
             transform.SetParent(_prevParent.parent, false);
             GetComponent<CanvasGroup>().blocksRaycasts = false;
+            transform.transform.rotation = Quaternion.identity;
         }
 
         public void OnDrag(PointerEventData eventData)

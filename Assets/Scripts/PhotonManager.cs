@@ -22,7 +22,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("ログイン成功");
         var options = new RoomOptions()
         {
-            MaxPlayers = 0,
+            MaxPlayers = 20,
             IsOpen = true,
             IsVisible = true,
         };
