@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8371609878668216075}
   - component: {fileID: 7827661914125612928}
-  - component: {fileID: 1862449051224062845}
   - component: {fileID: -1402181151448140211}
+  - component: {fileID: 1862449051224062845}
+  - component: {fileID: -1877026891659853081}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -47,6 +48,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955098662806164481}
   m_CullTransparentMesh: 1
+--- !u!114 &-1402181151448140211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955098662806164481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fdd231cc11255740a9c0af176098974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1862449051224062845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,11 +78,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -1877026891659853081}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-1402181151448140211
+--- !u!114 &-1877026891659853081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,9 +92,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1955098662806164481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fdd231cc11255740a9c0af176098974, type: 3}
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &6813870041255673270
 GameObject:
   m_ObjectHideFlags: 0
