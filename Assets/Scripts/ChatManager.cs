@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Extensions;
 using Photon.Pun;
 using UnityEngine;
 
@@ -81,20 +82,7 @@ public class ChatManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Chat(string newLine, PhotonMessageInfo info)
     {
-        var senderName = "anonymous";
-
-        if (info.Sender != null)
-        {
-            if (!string.IsNullOrEmpty(info.Sender.NickName))
-            {
-                senderName = info.Sender.NickName;
-            }
-            else
-            {
-                senderName = "player " + info.Sender.UserId;
-            }
-        }
-
+        var senderName = info.Sender.GetNicknameOrDefault();
         AddLine(senderName + ": " + newLine);
     }
 
@@ -104,7 +92,7 @@ public class ChatManager : MonoBehaviourPunCallbacks
         AddLine(broadcast);
     }
 
-    private void AddLine(string newLine)
+    public void AddLine(string newLine)
     {
         _messageList.Add(newLine);
     }

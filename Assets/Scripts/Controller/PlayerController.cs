@@ -1,3 +1,4 @@
+using Extensions;
 using Model;
 using Photon.Pun;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace Controller
             transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
             Init(new PlayerModel()
             {
-                Name = info.Sender.NickName,
+                Name = info.Sender.GetNicknameOrDefault(),
             });
             
             var photonView = GetComponent<PhotonView>();

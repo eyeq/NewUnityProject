@@ -836,6 +836,7 @@ MonoBehaviour:
   prefabName: Prefab/Player
   playerInitPosition: {x: 0, y: 0, z: 0}
   playerInitRotation: {x: 0, y: 0, z: 0}
+  chatManager: {fileID: 1404080529}
 --- !u!4 &1136503827
 Transform:
   m_ObjectHideFlags: 0
@@ -888,6 +889,7 @@ MonoBehaviour:
     height: 300
   isVisible: 1
   alignBottom: 0
+  maxCount: 10
 --- !u!4 &1404080530
 Transform:
   m_ObjectHideFlags: 0
