@@ -30,7 +30,7 @@ namespace Controller
             });
             
             var photonView = GetComponent<PhotonView>();
-            if (photonView.Owner.UserId == PhotonNetwork.LocalPlayer.UserId)
+            if (photonView.IsMine)
             {
                 transform.SetAsLastSibling();
             }
@@ -43,7 +43,7 @@ namespace Controller
         public void OnDrag(PointerEventData eventData)
         {
             var photonView = GetComponent<PhotonView>();
-            if (photonView.Owner.UserId == PhotonNetwork.LocalPlayer.UserId)
+            if (photonView.IsMine)
             {
                 transform.position = eventData.position;
             }
