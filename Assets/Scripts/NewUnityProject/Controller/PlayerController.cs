@@ -1,11 +1,11 @@
-using Extensions;
-using Model;
+using NewUnityProject.Extensions;
+using NewUnityProject.Model;
+using NewUnityProject.View;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using View;
 
-namespace Controller
+namespace NewUnityProject.Controller
 {
     public class PlayerController : MonoBehaviour, IPunInstantiateMagicCallback, IDragHandler
     {

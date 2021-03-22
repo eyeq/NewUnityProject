@@ -1,4 +1,4 @@
-namespace Model
+namespace NewUnityProject.Model
 {
     public struct PlayerModel
     {

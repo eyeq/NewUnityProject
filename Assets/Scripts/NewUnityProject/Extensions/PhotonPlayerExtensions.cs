@@ -1,6 +1,6 @@
 using Photon.Realtime;
 
-namespace Extensions
+namespace NewUnityProject.Extensions
 {
     public static class PhotonPlayerExtensions
     {

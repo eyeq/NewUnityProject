@@ -1,9 +1,9 @@
-using Model;
+using NewUnityProject.Model;
+using NewUnityProject.View;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using View;
 
-namespace Controller
+namespace NewUnityProject.Controller
 {
     public class CardController : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {

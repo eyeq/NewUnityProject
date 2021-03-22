@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Layout
+namespace NewUnityProject.Layout
 {
     public class SectorLayoutGroup  : LayoutGroup
     {

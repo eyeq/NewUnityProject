@@ -1,8 +1,8 @@
-using Model;
+using NewUnityProject.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace View
+namespace NewUnityProject.View
 {
     public class PlayerView : MonoBehaviour
     {
