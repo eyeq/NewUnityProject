@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Extensions;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class ChatManager : MonoBehaviourPunCallbacks
@@ -15,6 +16,16 @@ public class ChatManager : MonoBehaviourPunCallbacks
     private string _inputLine = "";
     private Vector2 _scrollPos = Vector2.zero;
     private readonly List<string> _messageList = new List<string>();
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        AddLine(newPlayer.GetNicknameOrDefault() + "が入室しました。");
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        AddLine(otherPlayer.GetNicknameOrDefault() + "が退室しました。");
+    }
 
     public void OnGUI()
     {

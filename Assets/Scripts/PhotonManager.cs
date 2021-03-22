@@ -1,5 +1,4 @@
 using System;
-using Extensions;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -9,7 +8,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     [SerializeField] public string prefabName;
     [SerializeField] public Vector3 playerInitPosition;
     [SerializeField] public Vector3 playerInitRotation;
-    [SerializeField] public ChatManager chatManager;
 
     public void Start()
     {
@@ -43,21 +41,5 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         Debug.Log("退室");
-    }
-
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        if (chatManager != null)
-        {
-            chatManager.AddLine(newPlayer.GetNicknameOrDefault() + "が入室しました。");
-        }
-    }
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        if (chatManager != null)
-        {
-            chatManager.AddLine(otherPlayer.GetNicknameOrDefault() + "が退室しました。");
-        }
     }
 }
