@@ -885,7 +885,6 @@ MonoBehaviour:
   prefabName: Prefab/Player
   playerInitPosition: {x: 0, y: 0, z: 0}
   playerInitRotation: {x: 0, y: 0, z: 0}
-  chatManager: {fileID: 1404080529}
 --- !u!4 &1136503827
 Transform:
   m_ObjectHideFlags: 0
@@ -930,14 +929,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89df968e3a9541f29794319b2cb286c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guiRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 250
-    height: 300
+  guiScreenSize: {x: 960, y: 540}
+  guiSize: {x: 250, y: 300}
+  parent: {fileID: 1420939718}
   isVisible: 1
-  alignBottom: 0
   maxCount: 10
 --- !u!4 &1404080530
 Transform:
@@ -1009,8 +1004,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -390, y: 200}
-  m_SizeDelta: {x: 180, y: 140}
+  m_AnchoredPosition: {x: -480, y: 270}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1420939719
 MonoBehaviour:

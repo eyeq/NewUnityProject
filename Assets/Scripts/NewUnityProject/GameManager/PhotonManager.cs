@@ -3,7 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
-namespace NewUnityProject
+namespace NewUnityProject.GameManager
 {
     public class PhotonManager : MonoBehaviourPunCallbacks
     {

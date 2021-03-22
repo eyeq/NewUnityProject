@@ -8,9 +8,9 @@ using NewUnityProject.Extensions;
 using NewUnityProject.Model;
 using UnityEngine;
 
-namespace NewUnityProject
+namespace NewUnityProject.GameManager
 {
-    public class GameManager : MonoBehaviour
+    public class MatchGameManager : MonoBehaviour
     {
         [SerializeField] public CardController cardPrefab;
 
