@@ -9,7 +9,7 @@ namespace NewUnityProject.GameManager
         {
             if (AnyInput())
             {
-                SceneManager.LoadScene("MatchScene", LoadSceneMode.Single);
+                SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
             }
         }
 		
