@@ -10,6 +10,8 @@ namespace NewUnityProject.Controller
         [SerializeField] public Transform handPanel;
         
         [SerializeField] public Transform fieldPanel;
+        
+        public CardModel Model {get; set;}
 
         private CardView _view;
         
@@ -17,6 +19,7 @@ namespace NewUnityProject.Controller
 
         public void Init(CardModel model, Transform hand, Transform field)
         {
+        	Model = model;
             handPanel = hand;
             fieldPanel = field;
             _view.Show(model);

@@ -40,6 +40,8 @@ namespace NewUnityProject.GameManager
 
         public void StartMatch()
         {
+            startButton.interactable = false;
+            
             _roomType = RoomType.QuickMatch;
             PhotonNetwork.LeaveRoom();
         }
