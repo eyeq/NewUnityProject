@@ -14,10 +14,15 @@ namespace NewUnityProject.GameManager
         [SerializeField] public Transform parent;
         [SerializeField] public bool isVisible = true;
         [SerializeField] public int maxCount = 10;
-    
+
         private string _inputLine = "";
         private Vector2 _scrollPos = Vector2.zero;
         private readonly List<string> _messageList = new List<string>();
+
+        public void Start()
+        {
+            PhotonNetwork.NickName = PlayerPrefs.GetString("playerName");
+        }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
@@ -40,9 +45,7 @@ namespace NewUnityProject.GameManager
             {
                 if (!string.IsNullOrEmpty(_inputLine))
                 {
-                    photonView.RPC(nameof(Chat), RpcTarget.All, _inputLine);
-                    _inputLine = "";
-                    GUI.FocusControl("");
+                    SendChat();
                     return; // printing the now modified list would result in an error. to avoid this, we just skip this single frame
                 }
                 else
@@ -50,13 +53,14 @@ namespace NewUnityProject.GameManager
                     GUI.FocusControl("ChatInput");
                 }
             }
-        
+
             // GUI用の解像度設定
-            var scale = Math.Min(Screen.width  / guiScreenSize.x, Screen.height / guiScreenSize.y);
+            var scale = Math.Min(Screen.width / guiScreenSize.x, Screen.height / guiScreenSize.y);
             GUIUtility.ScaleAroundPivot(new Vector2(scale, scale), Vector2.zero);
-        
+
             GUI.SetNextControlName("");
-            var guiRect = new Rect(parent.position.x / scale, (Screen.height - parent.position.y) / scale, guiSize.x, guiSize.y);
+            var guiRect = new Rect(parent.position.x / scale, (Screen.height - parent.position.y) / scale, guiSize.x,
+                guiSize.y);
             GUILayout.BeginArea(guiRect);
 
             _scrollPos = GUILayout.BeginScrollView(_scrollPos);
@@ -81,17 +85,23 @@ namespace NewUnityProject.GameManager
             {
                 if (!string.IsNullOrEmpty(_inputLine))
                 {
-                    photonView.RPC(nameof(Chat), RpcTarget.All, _inputLine);
-                    _inputLine = "";
-                    GUI.FocusControl("");
+                    SendChat();
                 }
             }
+
             GUILayout.EndHorizontal();
-        
+
             GUILayout.EndArea();
-        
+
             // GUIの解像度を元に戻す
-            GUI.matrix = Matrix4x4.identity; 
+            GUI.matrix = Matrix4x4.identity;
+        }
+
+        private void SendChat()
+        {
+            photonView.RPC(nameof(Chat), RpcTarget.AllBuffered, _inputLine);
+            _inputLine = "";
+            GUI.FocusControl("");
         }
 
         [PunRPC]
