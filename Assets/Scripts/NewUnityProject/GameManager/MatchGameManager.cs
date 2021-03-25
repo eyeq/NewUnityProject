@@ -25,6 +25,8 @@ namespace NewUnityProject.GameManager
         [SerializeField] public Transform opponentFieldPanel;
         [SerializeField] public Transform opponentHandPanel;
 
+        [SerializeField] public Transform matchingPanel;
+
         /// <summary>
         /// Master
         /// </summary>
@@ -37,7 +39,14 @@ namespace NewUnityProject.GameManager
         
         public void Start()
         {
+            matchingPanel.gameObject.SetActive(true);
             photonView.RPC(nameof(JoinGame), RpcTarget.MasterClient, new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13});
+        }
+
+        public void LeftRoom()
+        {
+            SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
+            PhotonNetwork.LeaveRoom();
         }
 
         public void DrawCard()
@@ -255,6 +264,8 @@ namespace NewUnityProject.GameManager
             {
                 await _deckSemaphore.WaitAsync();
                 
+                matchingPanel.gameObject.SetActive(false);
+                
                 Transform deckPanel;
                 Transform fieldPanel;
                 Transform handPanel;
@@ -352,8 +363,7 @@ namespace NewUnityProject.GameManager
         [PunRPC]
         public void EndGame(string losePlayerId, PhotonMessageInfo info)
         {
-            SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
-            PhotonNetwork.LeaveRoom();
+            LeftRoom();
         }
     }
 }
