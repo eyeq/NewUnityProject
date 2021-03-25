@@ -9,18 +9,21 @@ namespace NewUnityProject.Controller
 {
     public class PlayerController : MonoBehaviour, IPunInstantiateMagicCallback, IDragHandler
     {
+        public PlayerModel Model { get; private set; }
+
         private PlayerView _view;
-        
+
         public void Init(PlayerModel model)
         {
+            Model = model;
             _view.Show(model);
         }
-        
+
         private void Awake()
         {
             _view = GetComponent<PlayerView>();
         }
-        
+
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
             transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
@@ -28,7 +31,7 @@ namespace NewUnityProject.Controller
             {
                 Name = info.Sender.GetNicknameOrDefault(),
             });
-            
+
             var photonView = GetComponent<PhotonView>();
             if (photonView.IsMine)
             {
@@ -39,7 +42,7 @@ namespace NewUnityProject.Controller
                 transform.SetAsFirstSibling();
             }
         }
-        
+
         public void OnDrag(PointerEventData eventData)
         {
             var photonView = GetComponent<PhotonView>();

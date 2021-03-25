@@ -1,26 +1,31 @@
+using NewUnityProject.Controller;
+using NewUnityProject.Model;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace NewUnityProject.GameManager
 {
     public class TitleGameManager : MonoBehaviour
     {
-        [SerializeField] public Transform playerNameDialog;
-        [SerializeField] public InputField playerNameInputField;
+        [SerializeField] public InputPopupController inputPopup;
 
         public void Start()
         {
-            playerNameDialog.gameObject.SetActive(false);
+            inputPopup.gameObject.SetActive(false);
+            inputPopup.SetClickListener(() =>
+            {
+                inputPopup.gameObject.SetActive(false);
+                PlayerPrefs.SetString("playerName", inputPopup.ViewModel.Input.Trim());
+            });
         }
-        
+
         public void Update()
         {
-            if (playerNameDialog.gameObject.activeInHierarchy)
+            if (inputPopup.gameObject.activeInHierarchy)
             {
                 return;
             }
-            
+
             if (AnyInput())
             {
                 var playerName = "";
@@ -28,37 +33,40 @@ namespace NewUnityProject.GameManager
                 {
                     playerName = PlayerPrefs.GetString("playerName").Trim();
                 }
-                if(string.IsNullOrEmpty(playerName))
+
+                if (string.IsNullOrEmpty(playerName))
                 {
-                    playerNameDialog.gameObject.SetActive(true);
+                    inputPopup.Init(new InputPopupModel()
+                    {
+                        Message = "ユーザー名を入力してください。",
+                        Placeholder = "Enter your Nick.",
+                        Input = playerName,
+                    });
+                    inputPopup.gameObject.SetActive(true);
                     return;
                 }
-				
+
                 SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
             }
         }
 
-        public void ConfirmPlayerName()
-        {
-            PlayerPrefs.SetString("playerName", playerNameInputField.text.Trim());
-            playerNameDialog.gameObject.SetActive(false);
-        }
-		
         private static bool AnyInput()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 return true;
             }
+
             if (Input.GetMouseButtonDown(0))
             {
                 return true;
             }
+
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 return true;
             }
-			
+
             return false;
         }
     }

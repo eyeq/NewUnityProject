@@ -8,18 +8,18 @@ namespace NewUnityProject.Controller
     public class CardController : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         [SerializeField] public Transform handPanel;
-        
+
         [SerializeField] public Transform fieldPanel;
-        
-        public CardModel Model {get; set;}
+
+        public CardModel Model { get; private set; }
 
         private CardView _view;
-        
+
         private Transform _prevParent;
 
         public void Init(CardModel model, Transform hand, Transform field)
         {
-        	Model = model;
+            Model = model;
             handPanel = hand;
             fieldPanel = field;
             _view.Show(model);
@@ -29,7 +29,7 @@ namespace NewUnityProject.Controller
         {
             _view = GetComponent<CardView>();
         }
-        
+
         public void OnBeginDrag(PointerEventData eventData)
         {
             _prevParent = transform.parent;
@@ -37,7 +37,7 @@ namespace NewUnityProject.Controller
             {
                 return;
             }
-            
+
             transform.SetParent(_prevParent.parent, false);
             GetComponent<CanvasGroup>().blocksRaycasts = false;
             transform.transform.rotation = Quaternion.identity;
@@ -49,7 +49,7 @@ namespace NewUnityProject.Controller
             {
                 return;
             }
-            
+
             transform.position = eventData.position;
         }
 
@@ -59,7 +59,7 @@ namespace NewUnityProject.Controller
             {
                 return;
             }
-            
+
             var nextParent = _prevParent;
             if (eventData.pointerEnter != null && eventData.pointerEnter.transform == fieldPanel)
             {
@@ -78,7 +78,7 @@ namespace NewUnityProject.Controller
             }
 
             transform.SetParent(nextParent, false);
-            transform.SetSiblingIndex(count); 
+            transform.SetSiblingIndex(count);
             GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
     }
